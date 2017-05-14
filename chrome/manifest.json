@@ -1,0 +1,26 @@
+{
+  "name": "GitHub extension",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Jump to previous/next GitHub comments with j/k",
+  "homepage_url": "https://github.com/banga/github-extension",
+  "icons": {
+    "128": "icons/icon_128.png"
+  },
+  "permissions": [
+    "https://github.com/"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*"
+      ],
+      "js": [
+        "src/main.js"
+      ],
+      "css": [
+        "src/main.css"
+      ]
+    }
+  ]
+}
