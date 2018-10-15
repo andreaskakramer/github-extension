@@ -1,6 +1,11 @@
-const kInlineCommentSelector = "#files tr.inline-comments";
-const kGlobalCommentSelector = "#comments .timeline-comment";
+const kInlineCommentClass = "review-comment";
+const kInlineCommentSelector = `#files tr.inline-comments .js-comments-holder > .${kInlineCommentClass}`;
+const kGlobalCommentClass = "timeline-comment";
+const kGlobalCommentSelector = `#comments .${kGlobalCommentClass}`;
 const kCommentFocusedClass = "focused-by-extension";
+const kLikeButtonSelector = "button[data-reaction-label='+1']";
+const kGlobalReplySelector = "#all_commit_comments .timeline-new-comment button.write-tab";
+const kInlineReplySelector = ".review-thread-reply-button";
 
 function query(selector) {
     return document.querySelectorAll(selector);
@@ -47,6 +52,24 @@ function focusPrevious() {
     }
 }
 
+function toggleLike() {
+    query(`.${kCommentFocusedClass} ${kLikeButtonSelector}`)
+        .forEach(comment => comment.click());
+}
+
+function startReply() {
+    const focused = getFocused();
+    if (!focused.length) {
+        return;
+    }
+    const comment = focused[0];
+    if (comment.classList.contains(kInlineCommentClass)) {
+        comment.parentElement.parentElement.querySelector(kInlineReplySelector).click();
+    } else {
+        document.querySelector(kGlobalReplySelector).click();
+    }
+}
+
 function focus(elem) {
     getFocused().forEach(
         comment => comment.classList.remove(kCommentFocusedClass));
@@ -59,10 +82,19 @@ window.addEventListener("keydown", function(e) {
         e.target.nodeName == "TEXTAREA") {
         return;
     }
-    if (e.key == "j") {
-        focusNext();
-    }
-    if (e.key == "k") {
-        focusPrevious();
+    switch (e.key) {
+        case "j":
+            focusNext();
+            break;
+        case "k":
+            focusPrevious();
+            break;
+        case "l":
+            toggleLike();
+            break;
+        case "r":
+            startReply();
+            e.preventDefault();
+            break;
     }
 });

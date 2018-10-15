@@ -1,5 +1,6 @@
-.focused-by-extension .review-thread {
-    border-color: #28e;
+.focused-by-extension.review-comment {
+    border: 1px solid #28e;
+    margin: -1px;
 }
 
 .focused-by-extension.timeline-comment,
