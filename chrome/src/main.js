@@ -79,7 +79,8 @@ function focus(elem) {
 
 window.addEventListener("keydown", function(e) {
     if (e.altKey || e.shiftKey || e.ctrlKey || e.metaKey ||
-        e.target.nodeName == "TEXTAREA") {
+        e.target.nodeName == "TEXTAREA" || e.target.nodeName == "INPUT" ||
+        e.target.getAttribute("contentEditable") === "true") {
         return;
     }
     switch (e.key) {
