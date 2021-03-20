@@ -8,12 +8,12 @@
     "256": "icons/icon_256.png"
   },
   "permissions": [
-    "https://github.com/"
+    "https://github.geo.conti.com/"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://github.com/*"
+        "https://github.geo.conti.com/*"
       ],
       "js": [
         "src/main.js"
